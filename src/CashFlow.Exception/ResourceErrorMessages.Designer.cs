@@ -61,7 +61,7 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The amount must be greater then zero..
+        ///   Looks up a localized string similar to The value must be greater than zero..
         /// </summary>
         public static string AMOUNT_MUST_BE_GREATER_THAN_ZERO {
             get {
@@ -79,7 +79,7 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Payment Type is not valid..
+        ///   Looks up a localized string similar to Payment type is not valid..
         /// </summary>
         public static string PAYMENT_TYPE_INVALID {
             get {
