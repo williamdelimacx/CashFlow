@@ -4,14 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CashFlow.Infrastructure.DataAccess;
 internal class CashFlowDbContext : DbContext
 {
-    public DbSet<Expense> Expenses { get; set; }
+    public CashFlowDbContext(DbContextOptions options) : base(options) { }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var connectionString = "Server=localhost;Database=cashflowdb;User Id=sa;Password=Test@123;TrustServerCertificate=True;";
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }
+    public DbSet<Expense> Expenses { get; set; }
 }
