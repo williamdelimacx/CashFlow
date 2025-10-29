@@ -3,7 +3,7 @@ using CashFlow.Communication.Responses;
 using CashFlow.Domain.Repositories.Expenses;
 
 namespace CashFlow.Application.UseCases.Expenses.GetAll;
-internal class GetAllExpenseUseCase : IGetAllExpenseUseCase
+public class GetAllExpenseUseCase : IGetAllExpenseUseCase
 {
     private readonly IExpensesRepository _repository;
     private readonly IMapper _mapper;
