@@ -27,4 +27,14 @@
 		<EmbeddedResource Include="UseCases\Expenses\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Logo\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Logo\Profile.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
