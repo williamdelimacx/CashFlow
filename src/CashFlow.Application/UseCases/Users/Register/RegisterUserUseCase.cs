@@ -16,23 +16,23 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IAccessTokenGenerator _tokenGenerator;
+    private readonly IUnitOfWork _unitOfWork;
 
     public RegisterUserUseCase(
         IMapper mapper, 
         IPasswordEncripter passwordEncripter, 
         IUserReadOnlyRepository userReadOnlyRepository, 
         IUserWriteOnlyRepository userWriteOnlyRepository,      
-        IUnitOfWork unitOfWork, 
-        IAccessTokenGenerator tokenGenerator)
+        IAccessTokenGenerator tokenGenerator,
+        IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
         _userReadOnlyRepository = userReadOnlyRepository;
         _userWriteOnlyRepository = userWriteOnlyRepository;
-        _unitOfWork = unitOfWork;
         _tokenGenerator = tokenGenerator;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
