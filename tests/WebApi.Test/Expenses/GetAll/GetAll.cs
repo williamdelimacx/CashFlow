@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace WebApi.Test.Expenses;
+namespace WebApi.Test.Expenses.GetAll;
 
 public class GetAllExpenseTest : CashFlowClassFixture
 {
