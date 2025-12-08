@@ -5,6 +5,7 @@ using CashFlow.Exception;
 using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Delete;
+
 public class DeleteExpenseUseCase : IDeleteExpenseUseCase
 {
     private readonly IExpensesReadOnlyRepository _expensesReadOnly;
@@ -13,15 +14,15 @@ public class DeleteExpenseUseCase : IDeleteExpenseUseCase
     private readonly ILoggedUser _loggedUser;
 
     public DeleteExpenseUseCase(
+        IExpensesWriteOnlyRepository repository,
         IExpensesReadOnlyRepository expensesReadOnly,
-        IExpensesWriteOnlyRepository repository,   
         IUnitOfWork unitOfWork,
         ILoggedUser loggedUser)
     {
-        _expensesReadOnly = expensesReadOnly;
         _repository = repository;
         _unitOfWork = unitOfWork;
         _loggedUser = loggedUser;
+        _expensesReadOnly = expensesReadOnly;
     }
 
     public async Task Execute(long id)
@@ -29,7 +30,6 @@ public class DeleteExpenseUseCase : IDeleteExpenseUseCase
         var loggedUser = await _loggedUser.Get();
 
         var expense = await _expensesReadOnly.GetById(loggedUser, id);
-
         if (expense is null)
         {
             throw new NotFoundException(ResourceErrorMessages.EXPENSE_NOT_FOUND);
