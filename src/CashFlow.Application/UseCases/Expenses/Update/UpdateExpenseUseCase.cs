@@ -9,6 +9,7 @@ using CashFlow.Exception.ExceptionsBase;
 using System.ComponentModel.DataAnnotations;
 
 namespace CashFlow.Application.UseCases.Expenses.Update;
+
 public class UpdateExpenseUseCase : IUpdateExpenseUseCase
 {
     private readonly IMapper _mapper;
@@ -16,7 +17,11 @@ public class UpdateExpenseUseCase : IUpdateExpenseUseCase
     private readonly IExpensesUpdateOnlyRepository _repository;
     private readonly ILoggedUser _loggedUser;
 
-    public UpdateExpenseUseCase(IMapper mapper, IUnitOfWork unitOfWork, IExpensesUpdateOnlyRepository repository, ILoggedUser loggedUser)
+    public UpdateExpenseUseCase(
+        IMapper mapper,
+        IUnitOfWork unitOfWork,
+        IExpensesUpdateOnlyRepository repository,
+        ILoggedUser loggedUser)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
@@ -46,7 +51,7 @@ public class UpdateExpenseUseCase : IUpdateExpenseUseCase
         await _unitOfWork.Commit();
     }
 
-    public void Validate(RequestExpenseJson request)
+    private void Validate(RequestExpenseJson request)
     {
         var validator = new ExpenseValidator();
 
@@ -54,7 +59,9 @@ public class UpdateExpenseUseCase : IUpdateExpenseUseCase
 
         if (result.IsValid == false)
         {
-            var errorMessage = result.Errors.Select(f => f.ErrorMessage).ToList();
+            var errorMessages = result.Errors.Select(f => f.ErrorMessage).ToList();
+
+            throw new ErrorOnValidationException(errorMessages);
         }
     }
 }
