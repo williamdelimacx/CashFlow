@@ -5,6 +5,7 @@ using CashFlow.Domain.Services.LoggedUser;
 using ClosedXML.Excel;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel;
+
 public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUseCase
 {
     private const string CURRENCY_SYMBOL = "€";
@@ -38,13 +39,15 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
         InsertHeader(worksheet);
 
         var raw = 2;
-        foreach(var expense in expenses)
+        foreach (var expense in expenses)
         {
             worksheet.Cell($"A{raw}").Value = expense.Title;
             worksheet.Cell($"B{raw}").Value = expense.Date;
             worksheet.Cell($"C{raw}").Value = expense.PaymentType.PaymentTypeToString();
+
             worksheet.Cell($"D{raw}").Value = expense.Amount;
             worksheet.Cell($"D{raw}").Style.NumberFormat.Format = $"-{CURRENCY_SYMBOL} #,##0.00";
+
             worksheet.Cell($"E{raw}").Value = expense.Description;
 
             raw++;
@@ -68,11 +71,12 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
 
         worksheet.Cells("A1:E1").Style.Font.Bold = true;
 
+        worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.FromHtml("#F5C2B6");
+
         worksheet.Cell("A1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
         worksheet.Cell("B1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
         worksheet.Cell("C1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
         worksheet.Cell("E1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
         worksheet.Cell("D1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
-
     }
 }
