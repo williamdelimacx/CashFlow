@@ -51,7 +51,7 @@ public static class DependencyInjectionExtension
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Connection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<CashFlowDbContext>(config => config.UseSqlServer(connectionString));
     }
